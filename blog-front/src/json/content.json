@@ -1,0 +1,70 @@
+{
+"content" :"# 前言
+
+有些时候我们在父类中使用了 `self.tr('XXX')`，使用 Qt Linguist 完成翻译并导出 qm 文件后，发现子类中仍然是英文原文。比如下面这段代码：
+
+```python
+class AlbumCardBase(QWidget):
+    """ 专辑卡基类 """
+
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.playButton = BlurButton(
+            self,
+            (30, 65),
+            ":/images/album_tab_interface/Play.png",
+            self.coverPath,
+            self.tr('Play')
+        )
+        self.addToButton = BlurButton(
+            self,
+            (100, 65),
+            ":/images/album_tab_interface/Add.png",
+            self.coverPath,
+            self.tr('Add to')
+        )
+```
+
+父类 `AlbumCardBase` 中有两处使用了 `tr` 函数，分别翻译为 `播放` 和 `添加到`，但是在子类中这些文本仍然会显示为 `Play` 和 `Add to`，下面来看看如何解决这个问题。
+
+# 解决过程
+
+生成的 ts 文件中，有这样一段代码：
+
+```xml
+<context>
+    <name>AlbumCardBase</name>
+    <message>
+        <location filename="../../components/album_card/album_card_base.py" line="50"/>
+        <source>Add to</source>
+        <translation>添加到</translation>
+    </message>
+    <message>
+        <location filename="../../components/album_card/album_card_base.py" line="43"/>
+        <source>Play</source>
+        <translation>播放</translation>
+    </message>
+</context>
+```
+
+可以看到上述代码描述了源文的位置和内容以及译文，但是只对父类 `AlbumCardBase` 起作用。要想对子类应用上述规则，只需复制粘贴再修改 `<name>` 标签中的类名即可，比如 `AlbumCard` 为子类，那么只需添加下述代码：
+
+```xml
+<context>
+    <name>AlbumCard</name>
+    <message>
+        <location filename="../../components/album_card/album_card_base.py" line="50"/>
+        <source>Add to</source>
+        <translation>添加到</translation>
+    </message>
+    <message>
+        <location filename="../../components/album_card/album_card_base.py" line="43"/>
+        <source>Play</source>
+        <translation>播放</translation>
+    </message>
+</context>
+```
+
+完成上述步骤后导出 qm 文件即可。
+"
+}

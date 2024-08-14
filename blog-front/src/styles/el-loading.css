@@ -1,0 +1,30 @@
+
+.iam-loading .el-loading-spinner .circular { /*隐藏 默认的 loading 动画*/
+    display: none !important;
+}
+
+.iam-loading .el-loading-spinner .el-loading-text {
+    margin-top: 100px !important;
+}
+
+.iam-loading .el-icon-loading:before { /*隐藏 默认的 loading 动画*/
+    display: none !important;
+}
+
+.iam-loading .el-loading-spinner {
+    background-repeat: no-repeat;
+    background-size: 60px 60px;
+    height: 100px;
+    width: 100%;
+    background-position: center;
+    top: 40%;
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='10' height='10' x='1' y='1' fill='%235b95e1' rx='1'%3E%3Canimate id='svgSpinnersBlocksShuffle30' fill='freeze' attributeName='x' begin='0;svgSpinnersBlocksShuffle3b.end' dur='0.15s' values='1;13'/%3E%3Canimate id='svgSpinnersBlocksShuffle31' fill='freeze' attributeName='y' begin='svgSpinnersBlocksShuffle38.end' dur='0.15s' values='1;13'/%3E%3Canimate id='svgSpinnersBlocksShuffle32' fill='freeze' attributeName='x' begin='svgSpinnersBlocksShuffle39.end' dur='0.15s' values='13;1'/%3E%3Canimate id='svgSpinnersBlocksShuffle33' fill='freeze' attributeName='y' begin='svgSpinnersBlocksShuffle3a.end' dur='0.15s' values='13;1'/%3E%3C/rect%3E%3Crect width='10' height='10' x='1' y='13' fill='%235b95e1' rx='1'%3E%3Canimate id='svgSpinnersBlocksShuffle34' fill='freeze' attributeName='y' begin='svgSpinnersBlocksShuffle30.end' dur='0.15s' values='13;1'/%3E%3Canimate id='svgSpinnersBlocksShuffle35' fill='freeze' attributeName='x' begin='svgSpinnersBlocksShuffle31.end' dur='0.15s' values='1;13'/%3E%3Canimate id='svgSpinnersBlocksShuffle36' fill='freeze' attributeName='y' begin='svgSpinnersBlocksShuffle32.end' dur='0.15s' values='1;13'/%3E%3Canimate id='svgSpinnersBlocksShuffle37' fill='freeze' attributeName='x' begin='svgSpinnersBlocksShuffle33.end' dur='0.15s' values='13;1'/%3E%3C/rect%3E%3Crect width='10' height='10' x='13' y='13' fill='%235b95e1' rx='1'%3E%3Canimate id='svgSpinnersBlocksShuffle38' fill='freeze' attributeName='x' begin='svgSpinnersBlocksShuffle34.end' dur='0.15s' values='13;1'/%3E%3Canimate id='svgSpinnersBlocksShuffle39' fill='freeze' attributeName='y' begin='svgSpinnersBlocksShuffle35.end' dur='0.15s' values='13;1'/%3E%3Canimate id='svgSpinnersBlocksShuffle3a' fill='freeze' attributeName='x' begin='svgSpinnersBlocksShuffle36.end' dur='0.15s' values='1;13'/%3E%3Canimate id='svgSpinnersBlocksShuffle3b' fill='freeze' attributeName='y' begin='svgSpinnersBlocksShuffle37.end' dur='0.15s' values='1;13'/%3E%3C/rect%3E%3C/svg%3E") !important;
+
+}
+
+.el-loading-text {
+    color: #858080 !important;
+    font-size: 20px !important;
+}
+
