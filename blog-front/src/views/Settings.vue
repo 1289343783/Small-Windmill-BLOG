@@ -258,13 +258,16 @@ const uploadAvatar = async () => {
     onUploadProgress: (progressEvent: any) => {
       let v = Math.round(progressEvent.loaded / progressEvent.total * 100)
       progress.value = v == 100 ? 80 : v
+    },
+    headers: {
+      'Content-Type': 'multipart/form-data'
     }
   }
   const res = await uploadImageApi(file, config)
   progress.value = 40
-  if (res.status == 200) {
-    ruleForm.avatar = res.data.thumb.url;
-    userInfo.value.avatar = res.data.thumb.url;
+  if (res.code == 200) {
+    ruleForm.avatar = res.data.imgUrl;
+    userInfo.value.avatar = res.data.imgUrl;
     saveEditInfo(ruleFormRef.value)
     progress.value = 100
     isProgressVisible.value = false;

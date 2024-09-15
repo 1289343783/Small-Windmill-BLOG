@@ -474,8 +474,8 @@ let mavonRef = ref();
 
 const onImageAdded = async (pos: any, file: any) => {
   const res = await uploadImageApi(file)
-  if (res.status == 200) {
-    mavonRef.value.$img2Url(pos, res.data.thumb.url);
+  if (res.code == 200) {
+    mavonRef.value.$img2Url(pos, res.data.imgUrl);
   }
 }
 

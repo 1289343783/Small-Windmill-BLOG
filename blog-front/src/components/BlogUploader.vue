@@ -1,45 +1,45 @@
 <template>
   <div class="uploader">
     <input
-        type="file"
-        ref="fileInput"
         id="file-input"
-        style="display: none"
+        ref="fileInput"
         accept="image/*"
+        style="display: none"
+        type="file"
         @change="onImageAdded"
     />
 
-    <div class="card upload-card" @click="openFileDialog" v-if="!isThumbnailVisible">
+    <div v-if="!isThumbnailVisible" class="card upload-card" @click="openFileDialog">
       <svg
           class="icon"
-          width="28"
           height="28"
           viewBox="0 0 1024 1024"
+          width="28"
           xmlns="http://www.w3.org/2000/svg"
       >
         <path
-            fill="#8c939d"
             d="M480 480V128a32 32 0 0164 0v352h352a32 32 0 110 64H544v352a32 32 0 11-64 0V544H128a32 32 0 010-64h352z"
+            fill="#8c939d"
         ></path>
       </svg>
     </div>
 
-    <div class="card thumbnail-card" v-show="isThumbnailVisible">
-      <img src="" alt="缩略图" id="thumbnail" ref="thumbnail"/>
+    <div v-show="isThumbnailVisible" class="card thumbnail-card">
+      <img id="thumbnail" ref="thumbnail" alt="缩略图" src=""/>
 
-      <label class="success-label" v-show="isSuccessLabelVisible"
+      <label v-show="isSuccessLabelVisible" class="success-label"
       ><i class="success-icon"
       >
         <svg
             class="icon"
-            width="12"
             height="12"
             viewBox="0 0 1024 1024"
+            width="12"
             xmlns="http://www.w3.org/2000/svg"
         >
           <path
-              fill="white"
               d="M406.656 706.944L195.84 496.256a32 32 0 10-45.248 45.248l256 256 512-512a32 32 0 00-45.248-45.248L406.592 706.944z"
+              fill="white"
           ></path>
         </svg
         >
@@ -51,29 +51,29 @@
         <span class="thumbnail-preview" @click="handleThumbnailPreview">
           <svg
               class="icon"
-              width="20"
               height="20"
               viewBox="0 0 1024 1024"
+              width="20"
               xmlns="http://www.w3.org/2000/svg"
           >
             <path
-                fill="white"
                 d="M795.904 750.72l124.992 124.928a32 32 0 01-45.248 45.248L750.656 795.904a416 416 0 1145.248-45.248zM480 832a352 352 0 100-704 352 352 0 000 704zm-32-384v-96a32 32 0 0164 0v96h96a32 32 0 010 64h-96v96a32 32 0 01-64 0v-96h-96a32 32 0 010-64h96z"
+                fill="white"
             ></path>
           </svg>
         </span>
         <span class="thumbnail-delete">
           <svg
               class="icon"
-              width="20"
               height="20"
-              @click="handleThumbnailRemove"
               viewBox="0 0 1024 1024"
+              width="20"
               xmlns="http://www.w3.org/2000/svg"
+              @click="handleThumbnailRemove"
           >
             <path
-                fill="white"
                 d="M160 256H96a32 32 0 010-64h256V95.936a32 32 0 0132-32h256a32 32 0 0132 32V192h256a32 32 0 110 64h-64v672a32 32 0 01-32 32H192a32 32 0 01-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 01-32-32V416a32 32 0 0164 0v320a32 32 0 01-32 32zm192 0a32 32 0 01-32-32V416a32 32 0 0164 0v320a32 32 0 01-32 32z"
+                fill="white"
             ></path>
           </svg>
         </span>
@@ -81,25 +81,25 @@
 
       <!-- 进度条 -->
       <el-progress
-          type="circle"
-          :percentage="progress"
           v-show="isProgressVisible"
-          :width="110"
           id="progress"
+          :percentage="progress"
+          :width="110"
+          type="circle"
       />
     </div>
 
     <VueEasyLightbox
-        moveDisabled
-        :visible="isLightBoxVisible"
         :imgs="localImageUrl"
         :index="index"
+        :visible="isLightBoxVisible"
+        moveDisabled
         @hide="handleLightboxHide"
     />
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {ref, computed} from "vue";
 import {uploadImageApi} from "@/api/image";
 import VueEasyLightbox from "vue-easy-lightbox";
@@ -158,11 +158,11 @@ const upload = async (file: any) => {
   isProgressVisible.value = true;
   isSuccessLabelVisible.value = false;
   const res = await uploadImageApi(file)
-  if (res.status == 200) {
+  if (res.code == 200) {
     progress.value = 100;
-    imageUrl.value = res.data.thumb.url
-    thumbnail.value.src = res.data.thumb.url
-    emit("uploaded", res.data.thumb.url)
+    imageUrl.value = res.data.imgUrl
+    thumbnail.value.src = res.data.imgUrl
+    emit("uploaded", res.data.imgUrl)
     setTimeout(() => {
       isProgressVisible.value = false;
       isSuccessLabelVisible.value = true;

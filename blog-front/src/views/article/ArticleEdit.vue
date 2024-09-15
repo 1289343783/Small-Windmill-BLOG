@@ -15,40 +15,40 @@
           ref="ruleFormRef"
           :model="ruleForm"
           :rules="rules"
-          label-width="60px"
           class="edit-ruleForm"
+          label-width="60px"
       >
         <!-- 标题 -->
-        <el-form-item prop="title" label="标题">
+        <el-form-item label="标题" prop="title">
           <el-input
               v-model="ruleForm.title"
               class="w-50 m-3"
-              size="large"
               placeholder="给博客起一个好标题很重要哦"
+              size="large"
           ></el-input>
         </el-form-item>
 
         <!-- 摘要 -->
-        <el-form-item prop="summary" label="摘要">
+        <el-form-item label="摘要" prop="summary">
           <el-input
               v-model="ruleForm.summary"
               class="w-50 m-3"
+              placeholder="简要介绍一下这篇博客吧"
               size="large"
               type="textarea"
-              placeholder="简要介绍一下这篇博客吧"
           ></el-input>
         </el-form-item>
 
         <div class="inline-form-row">
           <!-- 分类 -->
-          <el-form-item label="分类" prop="category" inline style="width: 35%">
+          <el-form-item inline label="分类" prop="category" style="width: 35%">
             <el-select
                 v-model="ruleForm.category"
+                allow-create
+                clearable
+                filterable
                 placeholder="给博客分个类吧"
                 style="width: 100%; vertical-align: middle"
-                allow-create
-                filterable
-                clearable
             >
               <el-option
                   v-for="item in categories"
@@ -60,15 +60,15 @@
           </el-form-item>
 
           <!-- 标签 -->
-          <el-form-item label="标签" prop="tag" inline style="width: 60%">
+          <el-form-item inline label="标签" prop="tag" style="width: 60%">
             <el-select
                 v-model="ruleForm.tags"
+                allow-create
+                clearable
+                filterable
+                multiple
                 placeholder="来贴几个标签吧"
                 style="width: 100%; vertical-align: middle"
-                multiple
-                allow-create
-                filterable
-                clearable
             >
               <el-option
                   v-for="item in tags"
@@ -81,44 +81,44 @@
         </div>
 
         <!-- 编辑器 -->
-        <el-form-item prop="content" label="内容">
+        <el-form-item label="内容" prop="content">
           <mavon-editor
-              v-model="ruleForm.content"
               id="mavon"
-              codeStyle="atom-one-dark"
+              ref="mavonRef"
+              v-model="ruleForm.content"
               :autofocus="false"
               :boxShadow="false"
+              codeStyle="atom-one-dark"
               @imgAdd="onImageAdded"
-              ref="mavonRef"
           />
         </el-form-item>
 
         <!-- 缩略图 -->
-        <el-form-item prop="thumbnail" label="缩略图">
+        <el-form-item label="缩略图" prop="thumbnail">
           <BlogUploader
-              @uploaded="handleThumbnailUploaded"
+              ref="uploaderRef"
               @aboutToUpload="handleAboutToUploadThumbnail"
               @removed="handleRemoveThumbnail"
-              ref="uploaderRef"
+              @uploaded="handleThumbnailUploaded"
           />
         </el-form-item>
 
         <!-- 按钮 -->
         <el-form-item>
           <el-button
+              id="submit-button"
+              :disabled="submitButton"
+              class="el-button"
+              color="#1892ff"
               type="primary"
               @click="submitForm(ruleFormRef, false)"
-              color="#1892ff"
-              class="el-button"
-              :disabled="submitButton"
-              id="submit-button"
           >立刻发布
           </el-button
           >
           <el-button
-              class="el-button"
               id="draft-button"
               :disabled="draftButton"
+              class="el-button"
               @click="submitForm(ruleFormRef, true)"
           >存为草稿
           </el-button
@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {ref, reactive, computed, nextTick} from "vue";
 import {useCategoryAboutStore} from "@/store/modules/categoryAbout";
 import {ElMessage, ElMessageBox} from "element-plus";
@@ -224,8 +224,8 @@ const getBlogInfo = async () => {
 
 const onImageAdded = async (pos: any, file: any) => {
   const res = await uploadImageApi(file)
-  if (res.status == 200) {
-    mavonRef.value.$img2Url(pos, res.data.thumb.url);
+  if (res.code == 200) {
+    mavonRef.value.$img2Url(pos, res.data.imgUrl);
   }
 }
 
